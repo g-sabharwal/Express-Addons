@@ -1,0 +1,21 @@
+{
+	"testId": "ca578893-1a64-45dc-be84-9e9bdcf758ed",
+	"name": "SignIt",
+	"version": "1.0.0",
+	"manifestVersion": 2,
+	"requirements": {
+		"apps": [
+			{
+				"name": "Express",
+				"apiVersion": 1
+			}
+		]
+	},
+	"entryPoints": [
+		{
+			"type": "panel",
+			"id": "panel1",
+			"main": "index.html"
+		}
+	]
+}
