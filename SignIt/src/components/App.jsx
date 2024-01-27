@@ -127,7 +127,7 @@ const App = ({ addOnUISdk }) => {
 
 	function addToDocument() {
 		if (!hasContent) {
-			setError("Draw to signature to first to add to document");
+			setError("Draw signature first to add to the document");
 			return;
 		}
 		const dataURL = signaturePad.current.toDataURL();
