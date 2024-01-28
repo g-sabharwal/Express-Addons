@@ -81,9 +81,10 @@ const App = ({ addOnUISdk }) => {
 			textPosition: "bottom",
 			font: "adobe-clean",
 			fontOptions: "bold",
-			// fontSize: 40,
+			fontSize: 40,
 			textMargin: 15,
 			format: type,
+			width: 3,
 			valid: (isValid) => {
 				if (!isValid) {
 					error = true;
@@ -133,14 +134,10 @@ const App = ({ addOnUISdk }) => {
 							change={(e) => {
 								setType(e.target.value);
 							}}
+							value={type}
 						>
 							{barcodeOptions.map((barcodeType) => (
-								<MenuItem
-									role="option"
-									value={barcodeType}
-									key={barcodeType}
-									selected={barcodeType === type}
-								>
+								<MenuItem role="option" value={barcodeType} key={barcodeType}>
 									{barcodeType?.toUpperCase()}
 								</MenuItem>
 							))}
