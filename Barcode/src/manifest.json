@@ -16,11 +16,6 @@
 			"type": "panel",
 			"id": "panel1",
 			"main": "index.html"
-		},
-		{
-			"type": "share",
-			"id": "panel2",
-			"main": "index.html"
 		}
 	]
 }
