@@ -162,7 +162,7 @@ const App = ({ addOnUISdk }) => {
 					<Button
 						size="m"
 						onClick={clear}
-						variant="primary"
+						variant="secondary"
 						disabled={!hasContent}
 					>
 						Clear
@@ -170,7 +170,7 @@ const App = ({ addOnUISdk }) => {
 					<Button
 						size="m"
 						onClick={undo}
-						variant="primary"
+						variant="secondary"
 						disabled={!hasContent}
 					>
 						Undo
@@ -237,7 +237,7 @@ const App = ({ addOnUISdk }) => {
 					<span className="weight-slider-label">Weight</span>
 				</Slider>
 				<Button size="m" onClick={addToDocument} variant="accent">
-					Add To Document
+					Add to Page
 				</Button>
 			</div>
 		</Theme>
