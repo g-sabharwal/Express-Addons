@@ -1,4 +1,18 @@
 export const barcodeFormats = {
+	EAN13: {
+		regex: /^\d{13}$/,
+		errorMessage:
+			"EAN-13 barcodes must be of either 12 or 13 digits. If there are 13 digits, the 13th digit should be a valid check digit.",
+	},
+	CODE39: {
+		regex: /^[0-9A-Z\-\.\ \$\/\+\%]+$/,
+		errorMessage:
+			"CODE39 barcodes must contain only alphanumeric characters and the following symbols: - . $ / + % and space.",
+	},
+	ITF: {
+		regex: /^\d{2}(\d{2})+$/,
+		errorMessage: "ITF barcodes must contain an even number of digits.",
+	},
 	codabar: {
 		regex: /^[A-D][0-9\-\$\:\.\+\/]+[A-D]$/,
 		errorMessage:
@@ -8,26 +22,22 @@ export const barcodeFormats = {
 		regex: /^[\x00-\x7F]+$/,
 		errorMessage: "CODE128 barcodes must contain ASCII characters 0-127.",
 	},
+	Pharmacode: {
+		regex: /^\d+$/,
+		errorMessage:
+			"Pharmacode barcodes must contain numbers greater than 2 and less than 131071.",
+	},
 	CODE128A: {
 		regex: /^[\x00-\x7F]+$/,
-		errorMessage: "CODE128A barcodes must contain ASCII characters 0-127.",
+		errorMessage: "CODE128A barcodes must contain ASCII characters 0-95.",
 	},
 	CODE128B: {
 		regex: /^[\x00-\x7F]+$/,
-		errorMessage: "CODE128B barcodes must contain ASCII characters 0-127.",
+		errorMessage: "CODE128B barcodes must contain ASCII characters 32-127.",
 	},
 	CODE128C: {
 		regex: /^[\x00-\x7F]+$/,
-		errorMessage: "CODE128C barcodes must contain ASCII characters 0-127.",
-	},
-	CODE128AUTO: {
-		regex: /^[\x00-\x7F]+$/,
-		errorMessage: "CODE128C barcodes must contain ASCII characters 0-127.",
-	},
-	CODE39: {
-		regex: /^[0-9A-Z\-\.\ \$\/\+\%]+$/,
-		errorMessage:
-			"CODE39 barcodes must contain only alphanumeric characters and the following symbols: - . $ / + % and space.",
+		errorMessage: "CODE128C barcodes must contain ASCII characters 0-99.",
 	},
 	EAN2: {
 		regex: /^\d{2}$/,
@@ -41,21 +51,14 @@ export const barcodeFormats = {
 		regex: /^\d{8}$/,
 		errorMessage: "EAN8 barcodes must be 8 digits.",
 	},
-	EAN13: {
-		regex: /^\d{13}$/,
-		errorMessage: "EAN13 barcodes must be 13 digits.",
-	},
 	UPC: {
 		regex: /^\d{12}$/,
-		errorMessage: "UPC (A) barcodes must be 12 digits.",
+		errorMessage:
+			"UPC barcodes must be of either 11 or 12 digits. If there are 12 digits, the 12th digit should be a valid check digit.",
 	},
 	UPCE: {
 		regex: /^\d{6}$/,
 		errorMessage: "UPC (E) barcodes must be 6 digits.",
-	},
-	ITF: {
-		regex: /^\d{2}(\d{2})+$/,
-		errorMessage: "ITF barcodes must contain an even number of digits.",
 	},
 	ITF14: {
 		regex: /^\d{14}$/,
@@ -80,10 +83,5 @@ export const barcodeFormats = {
 	MSI1110: {
 		regex: /^\d+$/,
 		errorMessage: "MSI1110 barcodes must contain only numeric characters.",
-	},
-	Pharmacode: {
-		regex: /^\d+$/,
-		errorMessage:
-			"Pharmacode barcodes must contain numbers greater than 2 and less than 131071.",
 	},
 };

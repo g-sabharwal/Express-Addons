@@ -24,6 +24,10 @@ body {
 }
 
 #barcode {
+	display: block;
+}
+
+#barcode.hide {
 	display: none;
 }
 
@@ -133,4 +137,15 @@ body {
 .color-picker .color-picker-slider,
 .color-picker-input {
 	width: calc(290px - 2 * 16px);
+}
+
+sp-menu-item {
+	padding-block-end: var(--mod-menu-item-bottom-edge-to-text, var(--spectrum-menu-item-bottom-edge-to-text) );
+    padding-block-start: var(--mod-menu-item-top-edge-to-text, var(--spectrum-menu-item-top-edge-to-text) );
+    padding-inline: var(--mod-menu-item-label-inline-edge-to-content, var(--spectrum-menu-item-label-inline-edge-to-content) );    
+	padding-inline-start: var(--mod-menu-item-selectable-edge-to-text-not-selected, var(--spectrum-menu-item-selectable-edge-to-text-not-selected) );
+}
+
+sp-menu-item[aria-selected="true"] {
+	padding-inline-start: var(--mod-menu-item-label-inline-edge-to-content, var(--spectrum-menu-item-label-inline-edge-to-content) );
 }

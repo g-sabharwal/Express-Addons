@@ -16,6 +16,7 @@ import { MenuItem } from "@swc-react/menu";
 import { OverlayTrigger } from "@swc-react/overlay";
 import { Picker } from "@swc-react/picker";
 import { Textfield } from "@swc-react/textfield";
+import { Checkbox } from "@swc-react/checkbox";
 import { Theme } from "@swc-react/theme";
 import { Tooltip } from "@swc-react/tooltip";
 import JsBarcode from "jsbarcode";
@@ -29,6 +30,8 @@ const App = ({ addOnUISdk }) => {
 	const [theme, setTheme] = useState(addOnUISdk.app.ui.theme);
 	const [type, setType] = useState(barcodeOptions[0]);
 	const [isError, setIsError] = useState(false);
+	const [showPreview, setShowPreview] = useState(false);
+	const [initialLoad, setInitialLoad] = useState(true);
 	const [data, setData] = useState("");
 	const [color, setColor] = useState("#000");
 	const [isColorPickerOpen, setColorPickerOpen] = useState(false);
@@ -73,10 +76,13 @@ const App = ({ addOnUISdk }) => {
 		return new Blob([uInt8Array], { type: contentType });
 	}
 
-	function addToDocument() {
+	function checkIfValidBarcode(currVal) {
 		let error = false;
 		setIsError(error);
-		JsBarcode("#barcode", data, {
+		if (!currVal && !data) {
+			return false;
+		}
+		JsBarcode("#barcode", currVal ?? data, {
 			textAlign: "center",
 			textPosition: "bottom",
 			font: "adobe-clean",
@@ -94,6 +100,13 @@ const App = ({ addOnUISdk }) => {
 		});
 		setIsError(error);
 		if (error) {
+			return false;
+		}
+		return true;
+	}
+
+	function addToDocument() {
+		if (!checkIfValidBarcode()) {
 			return;
 		}
 		try {
@@ -105,11 +118,18 @@ const App = ({ addOnUISdk }) => {
 		}
 	}
 
+	useEffect(() => {
+		if (initialLoad) {
+			setInitialLoad(false);
+			return;
+		}
+		checkIfValidBarcode();
+	}, [color, type]);
+
 	return (
 		// Please note that the below "<Theme>" component does not react to theme changes in Express.
 		// You may use "addOnUISdk.app.ui.theme" to get the current theme and react accordingly.
 		<Theme theme="express" scale="medium" color={theme}>
-			<canvas id="barcode" ref={canvas}></canvas>
 			<div
 				className={`container ${theme}`}
 				onClick={() => {
@@ -152,6 +172,7 @@ const App = ({ addOnUISdk }) => {
 							value={data}
 							change={(e) => {
 								setData(e.target.value);
+								checkIfValidBarcode(e.target.value);
 							}}
 						></Textfield>
 						{isError ? (
@@ -209,7 +230,27 @@ const App = ({ addOnUISdk }) => {
 						<></>
 					)}
 				</div>
-				<Button size="m" onClick={addToDocument} variant="accent">
+				<Checkbox
+					size="m"
+					checked={showPreview}
+					onClick={() => {
+						setShowPreview((showPreview) => !showPreview);
+					}}
+					emphasized
+				>
+					Show Preview
+				</Checkbox>
+				<canvas
+					id="barcode"
+					className={showPreview && data && !isError ? "" : "hide"}
+					ref={canvas}
+				></canvas>
+				<Button
+					size="m"
+					onClick={addToDocument}
+					variant="accent"
+					disabled={isError || !data}
+				>
 					Generate Barcode
 				</Button>
 			</div>
